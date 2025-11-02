@@ -19,7 +19,7 @@ export default function Login() {
         <CardHeader>
           <CardTitle>Login to your account</CardTitle>
           <CardDescription>
-            Enter your email to login to your account
+            Enter your email below to login to your account
           </CardDescription>
         </CardHeader>
 
