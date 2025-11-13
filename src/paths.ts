@@ -4,10 +4,30 @@ export const Paths = {
   },
 
   Login() {
-    return `/login`;
+    return `/auth/login`;
   },
 
   Signup() {
-    return `/signup`;
+    return `/auth/signup`;
+  },
+
+  Dashboard() {
+    return `/dashboard`;
+  },
+
+  Teams() {
+    return `/dashboard/teams`;
+  },
+
+  Employees() {
+    return `/dashboard/employees`;
+  },
+
+  Account() {
+    return `/dashboard/account`;
+  },
+
+  Settings() {
+    return `/dashboard/settings`;
   },
 };

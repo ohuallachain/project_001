@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="flex flex-col justify-center items-center gap-2 h-screen">
+    <div className="flex flex-col justify-center items-center gap-2">
       <div className="flex flex-row items-center gap-1">
         <PersonStandingIcon size={40} className="text-pink-500" />
         <h1>Support Me</h1>
