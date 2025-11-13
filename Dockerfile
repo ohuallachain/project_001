@@ -8,7 +8,7 @@ WORKDIR /app
 
 # Install dependencies needed for production build
 # We copy package.json and lock files first to leverage Docker layer caching.
-COPY package.json yarn.lock package-lock.json ./
+COPY package.json package-lock.json ./
 RUN npm install --frozen-lockfile
 
 # Copy the rest of the application source code
