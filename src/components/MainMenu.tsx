@@ -4,20 +4,45 @@ import MenuLogo from './MenuLogo';
 import Link from 'next/link';
 import DarkModeToggle from './DarkModeToggle';
 import { Avatar, AvatarFallback } from './ui/avatar';
+import { cn } from '@/lib/utils';
+import useMediaQuery from '@/hooks/use-media-query';
 
-export default function MainMenu() {
+interface MainMenuProps {
+  className?: string;
+  closeMenu?: () => void;
+}
+
+export default function MainMenu({ className, closeMenu }: MainMenuProps) {
+  const isDesktop = useMediaQuery('(min-width: 768px)');
   return (
-    <nav className="flex flex-col justify-between px-4 pt-2 pb-4 h-full">
-      <header className="dark:border-b-black border-b-zinc-300 border-b-2 pb-4">
-        <MenuLogo />
-      </header>
+    <nav
+      className={cn(
+        'flex flex-col justify-between px-4 pt-2 pb-4 h-full',
+        className
+      )}
+    >
+      {isDesktop && (
+        <header className="dark:border-b-black border-b-zinc-300 border-b-2 pb-4">
+          <MenuLogo />
+        </header>
+      )}
 
       <div className="flex flex-col gap-4 py-4 grow">
-        <MenuItem href={Paths.Dashboard()}>Home</MenuItem>
-        <MenuItem href={Paths.Teams()}>Teams</MenuItem>
-        <MenuItem href={Paths.Employees()}>Employees</MenuItem>
-        <MenuItem href={Paths.Account()}>Account</MenuItem>
-        <MenuItem href={Paths.Settings()}>Settings</MenuItem>
+        <MenuItem href={Paths.Dashboard()} closeMenu={closeMenu}>
+          Home
+        </MenuItem>
+        <MenuItem href={Paths.Teams()} closeMenu={closeMenu}>
+          Teams
+        </MenuItem>
+        <MenuItem href={Paths.Employees()} closeMenu={closeMenu}>
+          Employees
+        </MenuItem>
+        <MenuItem href={Paths.Account()} closeMenu={closeMenu}>
+          Account
+        </MenuItem>
+        <MenuItem href={Paths.Settings()} closeMenu={closeMenu}>
+          Settings
+        </MenuItem>
       </div>
 
       <footer className="flex items-center justify-between">
