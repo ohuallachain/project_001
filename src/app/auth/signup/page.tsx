@@ -21,7 +21,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import {
   Popover,
   PopoverContent,
@@ -68,7 +67,13 @@ const baseSchema = z
     email: z.string().email(),
     accountType: z.enum(['personal', 'company']),
     companyName: z.string().optional(),
-    numEmployees: z.coerce.number().optional(),
+    numEmployees: z
+      .preprocess((val) => {
+        // If the value is an empty string (""), treat it as undefined.
+        // Otherwise, pass the value through (which could be a string or number).
+        return val === '' ? undefined : val;
+      }, z.coerce.number()) // Now, coerce only if it's not undefined
+      .optional(), // Keep it optional for the final type safety
     acceptTerms: z.boolean(),
     dateOfBirth: z.date().refine((date) => {
       const today = new Date();
