@@ -266,10 +266,11 @@ export default function Signup() {
                           <FormLabel>Number of Employees</FormLabel>
                           <FormControl>
                             <Input
+                              {...field}
+                              value={field.value ?? ''} // <-- this is the fix
                               type="number"
                               min={0}
                               placeholder="eg. 42"
-                              {...field}
                               onChange={(e) =>
                                 field.onChange(
                                   e.target.value === ''
