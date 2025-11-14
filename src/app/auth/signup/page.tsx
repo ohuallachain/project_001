@@ -67,7 +67,7 @@ const baseSchema = z
     email: z.string().email(),
     accountType: z.enum(['personal', 'company']),
     companyName: z.string().optional(),
-    numEmployees: z.coerce.number().optional(),
+    numEmployees: z.number().optional().nullable(),
     acceptTerms: z.boolean(),
     dateOfBirth: z.date().refine((date) => {
       const today = new Date();
