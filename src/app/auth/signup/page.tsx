@@ -67,13 +67,7 @@ const baseSchema = z
     email: z.string().email(),
     accountType: z.enum(['personal', 'company']),
     companyName: z.string().optional(),
-    numEmployees: z
-      .preprocess((val) => {
-        // If the value is an empty string (""), treat it as undefined.
-        // Otherwise, pass the value through (which could be a string or number).
-        return val === '' ? undefined : val;
-      }, z.coerce.number()) // Now, coerce only if it's not undefined
-      .optional(), // Keep it optional for the final type safety
+    numEmployees: z.coerce.number().optional(),
     acceptTerms: z.boolean(),
     dateOfBirth: z.date().refine((date) => {
       const today = new Date();
@@ -107,9 +101,9 @@ const baseSchema = z
   });
 
 // joining together the 2 zod schemas
-const formSchema = baseSchema.and(passwordSchema);
+const formSchema = baseSchema.merge(passwordSchema);
 
-export default function signup() {
+export default function Signup() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -230,7 +224,7 @@ export default function signup() {
                                 after: new Date(),
                               },
                               {
-                                before: new Date('1900 - 01 - 01'),
+                                before: new Date('1900-01-01'),
                               },
                             ]}
                           />
@@ -276,6 +270,13 @@ export default function signup() {
                               min={0}
                               placeholder="eg. 42"
                               {...field}
+                              onChange={(e) =>
+                                field.onChange(
+                                  e.target.value === ''
+                                    ? undefined
+                                    : Number(e.target.value)
+                                )
+                              }
                             />
                           </FormControl>
 
